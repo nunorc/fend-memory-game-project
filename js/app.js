@@ -58,6 +58,8 @@ function cardsVerifyMatch() {
         }
         else {
             // if open cards do not match close them
+            openCards[0].classList.add('error');
+            openCards[1].classList.add('error');
             cardsClose(openCards);
         }
     }
@@ -91,7 +93,7 @@ function incMoves() {
 function cardsClose(cards) {
     setTimeout( function() {
         for (const card of cards) {
-            card.classList.remove('show', 'open');
+            card.classList.remove('show', 'open', 'error');
         }
     }, 1000);
 }
@@ -100,11 +102,14 @@ function cardsClose(cards) {
 function gameEnds() {
     const allMatchCards = document.querySelectorAll('.match');
     if (allMatchCards.length == 16) {
-        const moves = document.querySelector('.moves').textContent;
-        const time = document.querySelector('.stopwatch').textContent;
-        alert('GAME WIN in '+time+' and '+moves+' moves');
         clearTimeout(t);
-        restartGame();
+        const moves = document.querySelector('.moves').textContent;
+        const stars = document.querySelector('.stars').outerHTML;
+        const time = document.querySelector('.stopwatch').textContent;
+        document.querySelector('.modal-moves').textContent = moves;
+        document.querySelector('.modal-stars').innerHTML = stars;
+        document.querySelector('.modal-time').textContent = time;
+        document.querySelector('.modal').style.display = 'block';
     }
 }
 
@@ -118,9 +123,10 @@ function restartGame() {
         myDeck.appendChild(i);
     }
 
-    // close all cards
+    // close and shake all cards
     const cards = document.querySelectorAll('.card');
     for (const card of cards) {
+        card.classList.add('shaker');
         card.classList.remove('open', 'match', 'show');
     }
 
@@ -133,11 +139,20 @@ function restartGame() {
     for (star of stars) {
         star.firstElementChild.className = 'fa fa-star';
     }
+    setTimeout(removeShaker, 1000);
 
     // reset stopwatch
     clearTimeout(t);
     seconds = 0; minutes = 0; hours = 0;
     timer();
+}
+
+// remove shaker class from cards after restart
+function removeShaker() {
+    const cards = document.querySelectorAll('.card');
+    for (const card of cards) {
+        card.classList.remove('shaker');
+    }
 }
 
 // handle stopwatch
@@ -173,6 +188,12 @@ for (const card of cards) {
 
 // add click event for restart button
 document.querySelector('.restart').addEventListener('click', restartGame);
+
+// add click event for play again button
+document.querySelector('.modal-button').addEventListener('click', function() {
+    document.querySelector('.modal').style.display = 'none';
+    restartGame();
+});
 
 // START GAME -- begin
 restartGame();

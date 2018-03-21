@@ -11,19 +11,32 @@
     </head>
     <body>
         <div class="container">
+            <div class="modal">
+               <div class="modal-content">
+                   <h2>Congratulations, you won!!</h2>
+                   <p>Total moves: <span class="modal-moves">__</span></p>
+                   <span class="modal-stars">__</span>
+                   <p>Time elapsed: <span class="modal-time">__</span></p>
+                   <button class="modal-button" type="button">Play again!</button>
+              </div>
+            </div>
             <header>
                 <h1>Memory Game</h1>
             </header>
             <section class="score-panel">
-                <ul class="stars">
-                    <li class="star"><i class="fa fa-star"></i></li>
-                    <li class="star"><i class="fa fa-star"></i></li>
-                    <li class="star"><i class="fa fa-star"></i></li>
-                </ul>
-                <span class="moves">0</span> <span class="moves-text">Moves</span>
-                <span class="stopwatch">Starting..</span>
-                <div class="restart">
-                    <i class="fa fa-repeat"></i>
+                <div class="score-panel-left">
+                    <ul class="stars">
+                        <li class="star"><i class="fa fa-star"></i></li>
+                        <li class="star"><i class="fa fa-star"></i></li>
+                        <li class="star"><i class="fa fa-star"></i></li>
+                    </ul>
+                    <span class="moves">0</span> <span class="moves-text">Moves</span>
+                </div>
+                <div class="score-panel-right">
+                    <span><i class="fa fa-stopwatch"></i></span> <span class="stopwatch">Starting..</span>
+                    <span class="restart">
+                        <i title="Restart" class="fa fa-repeat"></i>
+                    </span>
                 </div>
             </section>
             <ul class="deck">
